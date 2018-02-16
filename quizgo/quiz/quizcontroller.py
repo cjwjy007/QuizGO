@@ -2,9 +2,6 @@ import random
 import re
 from time import sleep
 
-import requests
-from bs4 import BeautifulSoup
-
 from quizgo import db
 from quizgo.quiz.quizmodel import SCQuiz, Quiz
 
