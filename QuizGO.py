@@ -1,7 +1,4 @@
-from quizgo import app
+from quizgo import app, socketio
 
 if __name__ == '__main__':
-    app.run(host=app.config['HOST'], port=app.config['PORT'], debug=app.config['DEBUG'])
-
-
-
+    socketio.run(app=app, host=app.config['HOST'], port=app.config['PORT'], debug=app.config['DEBUG'])
