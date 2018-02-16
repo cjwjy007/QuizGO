@@ -31,7 +31,7 @@ class SCQuizGame(Game):
             self.socketio.emit("clients", self.clients, room=self.room)
         self.stop()
         score_table = self.get_score_table()
-        self.socketio.emit("gamestate", {"isPlaying": False, "scoreTable": score_table})
+        self.socketio.emit("gamestate", {"isPlaying": False, "scoreTable": score_table},room=self.room)
 
     # 停止游戏
     def stop(self):

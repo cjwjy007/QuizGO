@@ -26,7 +26,7 @@ class QuizGame(Game):
             if self._game_left_time > -7:
                 self.socketio.emit("msg", "时间结束，答案是：" + self.__quiz.answer, room=self.room)
         self.stop()
-        self.socketio.emit("gamestate", {"isPlaying": False})
+        self.socketio.emit("gamestate", {"isPlaying": False},room=self.room)
 
     def stop(self):
         super().stop()

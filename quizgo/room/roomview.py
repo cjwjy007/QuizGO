@@ -74,9 +74,9 @@ def on_start_game(data):
         if rc.start_game(room=room):
             emit("msg", "开始游戏", room=room)
         else:
-            emit("alert", {'msg': "请等待所有玩家准备"})
+            emit("alert", {'msg': "请等待所有玩家准备"}, room=req.sid)
     else:
-        emit("alert", {'msg': "游戏正在进行，请旁观"})
+        emit("alert", {'msg': "游戏正在进行，请旁观"}, room=req.sid)
 
 
 # 结束游戏
@@ -117,6 +117,6 @@ def on_send_msg(data):
 def on_validate_answer(data):
     room = data['room']
     if rc.validate_user_in_game(room=room, sid=req.sid):
-        emit("answer", rc.validate_answer(room=room, sid=req.sid, answer=data['answer']))
+        emit("answer", rc.validate_answer(room=room, sid=req.sid, answer=data['answer']), room=room)
     else:
-        emit("alert", {'msg': "旁观者无法答题"})
+        emit("alert", {'msg': "旁观者无法答题"}, room=req.sid)
