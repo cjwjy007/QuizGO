@@ -99,7 +99,7 @@ def on_ready(data):
 @socketio.on('isowner')
 def on_get_is_owner(data):
     room = data['room']
-    emit("isowner", rc.get_is_owner(sid=req.sid, room=room))
+    emit("isowner", rc.get_is_owner(sid=req.sid, room=req.sid))
 
 
 # 发送信息
@@ -117,6 +117,6 @@ def on_send_msg(data):
 def on_validate_answer(data):
     room = data['room']
     if rc.validate_user_in_game(room=room, sid=req.sid):
-        emit("answer", rc.validate_answer(room=room, sid=req.sid, answer=data['answer']), room=room)
+        emit("answer", rc.validate_answer(room=room, sid=req.sid, answer=data['answer']), room=req.sid)
     else:
         emit("alert", {'msg': "旁观者无法答题"}, room=req.sid)
