@@ -99,7 +99,7 @@ def on_ready(data):
 @socketio.on('isowner')
 def on_get_is_owner(data):
     room = data['room']
-    emit("isowner", rc.get_is_owner(sid=req.sid, room=req.sid))
+    emit("isowner", rc.get_is_owner(sid=req.sid, room=room), room=req.sid)
 
 
 # 发送信息
