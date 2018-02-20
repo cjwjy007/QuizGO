@@ -27,8 +27,8 @@ class RoomController:
     # 客户端加入房间
     def client_join_room(self, user_data, room):
         if room:
-            user_name = user_data.get('username', default='wjy666')[0:7]
-            user_avatar = user_data.get('avatar', default='')
+            user_name = user_data.get('username', 'wjy666')[0:7]
+            user_avatar = user_data.get('avatar', '')
             user = {'username': user_name, 'owner': True, 'sid': user_data['sid'],
                     'avatar': user_avatar, 'ready': False}
             if self.validate_room(room=room):
