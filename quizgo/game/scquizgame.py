@@ -14,7 +14,7 @@ class SCQuizGame(Game):
     def start(self):
         super().start()
         self._game_round = 0
-        while self._game_start and self._game_round < 5:
+        while self._game_start and self._game_round < 7:
             self.socketio.emit("clients", self.clients, room=self.room)
             self.start_new_round()
             self._game_round += 1
