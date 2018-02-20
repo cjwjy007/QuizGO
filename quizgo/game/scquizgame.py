@@ -75,6 +75,7 @@ class SCQuizGame(Game):
     def get_score_table(self):
         score_table = []
         for c in self.clients:
-            score_table.append({'username': c['username'], 'score': c['score'], 'avatar': c['avatar']})
+            if self.user_in_game(c['sid']):
+                score_table.append({'username': c['username'], 'score': c['score'], 'avatar': c['avatar']})
         score_table.sort(key=lambda x: x["score"], reverse=True)
         return score_table
