@@ -6,6 +6,7 @@ from quizgo import db
 from quizgo.quiz.quizmodel import SCQuiz, Quiz
 
 
+# unused
 class QuizController:
     def __init__(self):
         pass
@@ -18,7 +19,7 @@ class QuizController:
     def get_rand_quiz(self):
         quiz_len = Quiz.query.count()
         rand_id = random.randint(0, quiz_len)
-        return Quiz.query.filter_by(id=rand_id).first()
+        return Quiz.query.get(rand_id).first()
 
     def get_quiz_file(self):
         filename = '/Users/wei/Downloads/quizgo/Questions.txt'
@@ -63,10 +64,19 @@ class SCQuizController:
                 if SCQuiz.query.filter_by(question=q).first() is None:
                     scqc.insert_scquiz(q, c, a, 0)
 
+    # 随机取出一个题目
     def get_rand_scquiz(self):
-        quiz_len = SCQuiz.query.count()
-        rand_id = random.randint(0, quiz_len)
-        return SCQuiz.query.filter_by(id=rand_id).first()
+        try:
+            quiz_len = SCQuiz.query.count()
+            while True:
+                rand_id = random.randint(0, quiz_len)
+                quiz = SCQuiz.query.filter_by(id=rand_id).first()
+                if quiz:
+                    return quiz
+        except TimeoutError as e:
+            print(e)
+            return None
+
 
 if __name__ == '__main__':
     scqc = SCQuizController()

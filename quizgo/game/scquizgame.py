@@ -31,7 +31,7 @@ class SCQuizGame(Game):
             self.socketio.emit("clients", self.clients, room=self.room)
         self.stop()
         score_table = self.get_score_table()
-        self.socketio.emit("gamestate", {"isPlaying": False, "scoreTable": score_table},room=self.room)
+        self.socketio.emit("gamestate", {"isPlaying": False, "scoreTable": score_table}, room=self.room)
 
     # 停止游戏
     def stop(self):
@@ -54,9 +54,10 @@ class SCQuizGame(Game):
     # 更改玩家分数与作答情况
     def set_client_state(self, sid, score):
         c = super().get_client_by_sid(sid=sid)
-        if c['answered'] is False:
-            c['score'] += score
-            c['answered'] = True
+        if self.user_in_game(user=c):
+            if c['answered'] is False:
+                c['score'] += score
+                c['answered'] = True
 
     # 开启新的一轮游戏
     def start_new_round(self):
@@ -67,15 +68,16 @@ class SCQuizGame(Game):
     # 判断是否所有人已经作答
     def is_all_clients_answered(self):
         for c in self.clients:
-            if c['answered'] is False:
-                return False
+            if self.user_in_game(user=c):
+                if c['answered'] is False:
+                    return False
         return True
 
     # 获取分数表
     def get_score_table(self):
         score_table = []
         for c in self.clients:
-            if self.user_in_game(c['sid']):
-                score_table.append({'username': c['username'], 'score': c['score'], 'avatar': c['avatar']})
+            if self.user_in_game(user=c):
+                score_table.append({'username': c.get('username'), 'score': c.get('score'), 'avatar': c.get('avatar')})
         score_table.sort(key=lambda x: x["score"], reverse=True)
         return score_table

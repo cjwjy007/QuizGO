@@ -1,0 +1,10 @@
+<table>
+{% for r in ret %}
+    <ul>
+    <li>room:{{ r[0] }}</li>
+    {% for user in r[1] %}
+        <li>%{{ user }}</li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+ </table>

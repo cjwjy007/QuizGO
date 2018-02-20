@@ -1,9 +1,6 @@
-from flask import session
-
 from quizgo import socketio, req
-from quizgo.game.quizgame import QuizGame
 from quizgo.room.roomcontroller import RoomController
-from flask_socketio import join_room, leave_room, emit, rooms, disconnect
+from flask_socketio import join_room, leave_room, emit, rooms
 
 rc = RoomController()
 
@@ -23,7 +20,7 @@ def on_disconnect():
         leave_room(room)
         rc.client_leave_room(sid=req.sid, room=room)
         # print('Client disconnected')
-        emit("info", req.sid + ' left the room.', room=room)
+        # emit("info", req.sid + ' left the room.', room=room)
         emit("clients", rc.all_clients_in_room(room=room), room=room)
 
 
@@ -50,7 +47,7 @@ def on_join(data):
     user_data = {'username': data['username'], 'avatar': data['avatar'], 'sid': req.sid}
     rc.client_join_room(user_data=user_data, room=room)
     # print(rc.all_rooms_in_poll())
-    emit("info", data['username'] + ' has entered the room.', room=room)
+    # emit("info", data['username'] + ' has entered the room.', room=room)
     emit("clients", rc.all_clients_in_room(room=room), room=room)
 
 

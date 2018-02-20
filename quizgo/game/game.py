@@ -32,9 +32,12 @@ class Game(object):
         return self._game_start
 
     # 该sid玩家是否在游戏中
-    def user_in_game(self, sid):
-        c = self.get_client_by_sid(sid=sid)
-        if 'score' in c:
+    def user_in_game(self, sid=None, user=None):
+        if user is None:
+            c = self.get_client_by_sid(sid=sid)
+        else:
+            c = user
+        if 'score' in c and 'answered' in c:
             return True
         return False
 
