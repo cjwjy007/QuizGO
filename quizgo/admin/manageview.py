@@ -4,11 +4,11 @@ from quizgo import app
 from quizgo.room.roomview import rc
 
 
-@app.route('/roompoll', methods=['GET'])
-def get_roompoll():
-    room_poll = rc.all_rooms_in_poll()
+@app.route('/roompool', methods=['GET'])
+def get_roompool():
+    room_pool = rc.all_rooms_in_pool()
     ret = []
-    for key, value in room_poll.items():
+    for key, value in room_pool.items():
         usernames = []
         clients = value.get('clients')
         for c in clients:

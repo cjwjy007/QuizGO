@@ -46,7 +46,7 @@ def on_join(data):
     join_room(room)
     user_data = {'username': data['username'], 'avatar': data['avatar'], 'sid': req.sid}
     rc.client_join_room(user_data=user_data, room=room)
-    # print(rc.all_rooms_in_poll())
+    # print(rc.all_rooms_in_pool())
     # emit("info", data['username'] + ' has entered the room.', room=room)
     emit("clients", rc.all_clients_in_room(room=room), room=room)
 

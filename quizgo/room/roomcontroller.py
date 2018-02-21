@@ -65,7 +65,7 @@ class RoomController:
             return []
 
     # 放回房间池中所有房间信息
-    def all_rooms_in_poll(self):
+    def all_rooms_in_pool(self):
         return self.room_pool
 
     # 返回一个sid是否为房间房主
