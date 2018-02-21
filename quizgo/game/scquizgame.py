@@ -18,7 +18,7 @@ class SCQuizGame(Game):
             self.socketio.emit("clients", self.clients, room=self.room)
             self.start_new_round()
             self._game_round += 1
-            self._game_left_time = 10
+            self._game_left_time = 13
             self.__quiz = SCQuizController().get_rand_scquiz()
             if self.__quiz is None:
                 continue
@@ -44,8 +44,9 @@ class SCQuizGame(Game):
     def answer(self, answer, sid):
         # print(answer, self.__quiz.answer)
         if answer == self.__quiz.answer:
-            self.set_client_state(sid, self._game_left_time)
-            answer_ret = {'answer': self.__quiz.answer, 'correct': True, 'score': self._game_left_time}
+            score = self._game_left_time
+            self.set_client_state(sid, score)
+            answer_ret = {'answer': self.__quiz.answer, 'correct': True, 'score': score}
         else:
             self.set_client_state(sid, 0)
             answer_ret = {'answer': self.__quiz.answer, 'correct': False, 'score': 0}
