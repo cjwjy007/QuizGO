@@ -68,12 +68,13 @@ class SCQuizController:
     def get_rand_scquiz(self):
         try:
             quiz_len = SCQuiz.query.count()
-            while True:
-                rand_id = random.randint(0, quiz_len)
-                quiz = SCQuiz.query.filter_by(id=rand_id).first()
-                if quiz:
-                    return quiz
-        except TimeoutError as e:
+            rand_id = random.randint(0, quiz_len)
+            quiz = SCQuiz.query.filter_by(id=rand_id).first()
+            if quiz:
+                return quiz
+            else:
+                return None
+        except Exception as e:
             print(e)
             return None
 

@@ -20,6 +20,8 @@ class SCQuizGame(Game):
             self._game_round += 1
             self._game_left_time = 10
             self.__quiz = SCQuizController().get_rand_scquiz()
+            if self.__quiz is None:
+                continue
             game_state = {"isPlaying": True, "round": self._game_round, "question": self.__quiz.question,
                           "choices": self.__quiz.choices}
             self.socketio.emit("gamestate", game_state, room=self.room)
