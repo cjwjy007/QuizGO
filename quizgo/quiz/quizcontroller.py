@@ -1,6 +1,5 @@
 import random
 import re
-from time import sleep
 
 from quizgo import db
 from quizgo.quiz.quizmodel import SCQuiz, Quiz
@@ -75,7 +74,9 @@ class SCQuizController:
             else:
                 return None
         except Exception as e:
-            print(e)
+            db.session.close_all()
+            db.engine.dispose()
+            db.create_scoped_session()
             return None
 
 
